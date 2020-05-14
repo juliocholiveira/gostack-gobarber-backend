@@ -41,18 +41,14 @@ router.get('/:email', ensureAuthenticated, async (req, res) => {
 });
 
 router.patch('/avatar', ensureAuthenticated, upload.single('avatar'), async (req, res) => {
-  try {
-    const updateAvatarUserService = new UpdateAvatarUserService();
+  const updateAvatarUserService = new UpdateAvatarUserService();
 
-    const user = await updateAvatarUserService.execute({
-      userId: req.user.id,
-      avatarFileName: req.file.filename
-    });
+  const user = await updateAvatarUserService.execute({
+    userId: req.user.id,
+    avatarFileName: req.file.filename
+  });
 
-    return res.json(user);
-  } catch (error) {
-    return res.status(400).json({ message: error.message });
-  }
+  return res.json(user);
 });
 
 export default router;

@@ -15,19 +15,15 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  try {
-    const { providerId, date } = req.body;
+  const { providerId, date } = req.body;
 
-    const parsedDate = parseISO(date);
+  const parsedDate = parseISO(date);
 
-    const createAppointmentService = new CreateAppointmentService();
+  const createAppointmentService = new CreateAppointmentService();
 
-    const appointment = await createAppointmentService.execute({ providerId, date: parsedDate });
+  const appointment = await createAppointmentService.execute({ providerId, date: parsedDate });
 
-    return res.json(appointment);
-  } catch (error) {
-    return res.status(400).json({ error: error.message });
-  }
+  return res.json(appointment);
 });
 
 export default router;
